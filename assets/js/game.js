@@ -1,4 +1,9 @@
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
 
+    return value;
+};
 
  // Alert players that they are starting the round
  window.alert("Welcome to Robot Gladiators!");
@@ -172,12 +177,7 @@ var shop = function() {
     }
 };
 
-// function to generate a random numeric value
-var randomNumber = function(min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
 
-    return value;
-};
 var playerInfo = {
     name: window.prompt("What is your robot's name"),
     health: 100,
