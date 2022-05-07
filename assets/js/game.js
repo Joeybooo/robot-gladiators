@@ -8,30 +8,39 @@ var randomNumber = function(min, max) {
  // Alert players that they are starting the round
  window.alert("Welcome to Robot Gladiators!");
 
+ var fightOrSkip = function() {
+     // ask player if they'd like to fight or skip using fightOrSkip function
+     var promptFight = window.prompt("Would you like to FIGHT or skip this battle? Enter 'Fight' or 'SKIP' to choose.");
+     
+     // enter the conditonal recursive function call here!
+     if (promptFight === "" || promptFight === null) {
+         window.alert("You need to provide a valid answer! PLease try again.");
+         return fightOrSkip();
+     }
+
+     promptFight = promptFight.toLocaleLowerCase();
+
+     if (promptFight === "skip") {
+        var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+
+        // if yes(true), leave fight
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+            // subtract money from playerInfo.money for skipping
+            playerInfo.money = Math.max(0, playerInfo.money - 10);
+            
+            // return true if player wants to leave
+            return true;
+        }
+    }
+ }
+
 var fight = function(enemy) {
     // repeat and execute as long as the enemy-robot is alive
     while(playerInfo.health > 0 && enemy.health > 0) {
-        // place fight funtion code block here...
-        var promptFight = window.prompt("Would you like to FIGHT or skip this battle? Enter 'Fight' or 'SKIP' to choose.");
-        
-    
-
-        if (promptFight === "skip" || promptFight === "SKIP") {
-            // confirm player wants to skip
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-    
-            // if yes(true), leave fight
-            if (confirmSkip) {
-                window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-                // subtract money from playerInfo.money for skipping
-                playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log("playerInfo.money", playerInfo.money)
-                break;
-            }
-            // if no (false), ask question again by running fight() again
-            else {
-                fight();
-            }
+        if (fightOrSkip()) {
+            // if true, leave fight by breaking loop
+            break;
         }
     // if the player chooses to fight, then fight
     if (promptFight === "fight" || promptFight === "FIGHT") {
